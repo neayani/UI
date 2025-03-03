@@ -34,7 +34,9 @@ const ListUsers = () => {
   }
   if (!loading) {
     return (
+     
       <div className="container mt-4">
+      <button className="btn btn-success" onClick={handleCreate}>Create User</button>
         <h1>User List</h1>
         <table className="table table-bordered">
           <thead>
@@ -55,37 +57,29 @@ const ListUsers = () => {
               <tr key={user.id}>
                 {/* <td>{user.id}</td> */}
                 <td>
-                 <input type ="text" value={user.name}></input>
+                  <input type="text" value={user.name}></input>
                 </td>
                 <td>
                   <input type="text" value={user.lastName}></input>
                 </td>
 
-                <td> <input type="text" value={user.userName}></input></td>
-                <td> <input type="text" value={user.email}></input></td>
                 <td>
-                  <input
-                    type="checkbox"
-                    readOnly
-                    checked={user.isActive}
-                  ></input>
+                  <input type="text" value={user.userName}></input>
                 </td>
                 <td>
-                  <input
-                    type="checkbox"
-                    readOnly
-                    checked={user.isAdmin}
-                  ></input>
+                  <input type="text" value={user.email}></input>
                 </td>
                 <td>
-                <button className="btn btn-info btn-sm" >
-                                        Update
-                                    </button>
+                  <input type="checkbox" checked={user.isActive}></input>
                 </td>
                 <td>
-                <button className="btn btn-warning btn-sm" >
-                                        Delete
-                                    </button>
+                  <input type="checkbox" checked={user.isAdmin}></input>
+                </td>
+                <td>
+                  <button className="btn btn-info btn-sm" onClick={handleUpdate}>Update</button>
+                </td>
+                <td>
+                  <button className="btn btn-warning btn-sm" onClick={handleDelete}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -95,5 +89,17 @@ const ListUsers = () => {
     );
   }
 };
+function handleCreate()
+{
 
+}
+function handleUpdate(user)
+{
+const res=axios.put("https://localhost:7101/api/User",user);
+
+}
+function handleDelete()
+{
+
+}
 export default ListUsers;
