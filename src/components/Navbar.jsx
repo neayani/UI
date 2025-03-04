@@ -1,6 +1,23 @@
 import { NavLink } from "react-router-dom";
 
 const Navbar = ({ onLogout }) => {
+  const decodeJwt = (token) => {
+    const base64Url = token.split(".")[1]; // Get the payload part
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // Adjust base64 encoding
+    const decodedData = atob(base64); // Decode base64 string
+
+    return JSON.parse(decodedData); // Parse JSON to get object
+  };
+
+  let userRole;
+  const token = localStorage.getItem("token"); // Get token from localStorage
+  console.log(token);
+  if (token) {
+    const decoded = decodeJwt(token);
+    console.log(decoded); // Logs the decoded JWT payload (including role)
+    userRole = decoded.role; // Example of extracting role from decoded payload
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -23,18 +40,22 @@ const Navbar = ({ onLogout }) => {
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/ListUsers"
-                >
-                  ListOfUsers
-                </NavLink>
-              </li>
+              {userRole === "Admin" && (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/ListUsers"
+                  >
+                    ListOfUsers
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </div>
-          <button onClick={onLogout} className="btn btn-danger">Log Off</button>
+          <button onClick={onLogout} className="btn btn-danger">
+            Log Out
+          </button>
         </div>
       </nav>
     </>
