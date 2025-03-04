@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 //import Register from './Register';
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 
 
