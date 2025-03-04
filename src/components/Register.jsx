@@ -14,7 +14,11 @@ const Register = () => {
     isActive:false,
     isAdmin:false
   });
-
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNzQxMDc1MDI5LCJleHAiOjE3NDEwNzg2MjksImlhdCI6MTc0MTA3NTAyOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NDMxOSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDQzMTkifQ.v0dDAGBlMQ-Nz76KiNj9S0NaK-3zPgLsagICKzN5Jmk";
+//localStorage.getItem("jwtToken");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   const navigate = useNavigate();
   // const headers = {
 
@@ -30,7 +34,7 @@ const Register = () => {
 
      axios
 
-      .post("https://localhost:7101/api/User", formData)
+      .post("https://localhost:7101/api/User", formData,{headers})
       .then((response) => {
         navigate("/ListUsers");
         console.log(response);
@@ -105,13 +109,13 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="family">family:</label>
+            <label htmlFor="lastName">LastName:</label>
             <input
               type="text"
-              id="family"
-              name="family"
+              id="lastName"
+              name="lastName"
               required
-              value={formData.family}
+              value={formData.lastName}
               onChange={handleChange}
             />
           </div>
