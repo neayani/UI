@@ -11,8 +11,8 @@ const Register = () => {
     email: "",
     userName: "",
     password: "",
-    isActive:true,
-    isAdmin:true
+    isActive:false,
+    isAdmin:false
   });
 
   const navigate = useNavigate();
