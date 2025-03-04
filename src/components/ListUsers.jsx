@@ -43,8 +43,6 @@ const ListUsers = () => {
 
   const handleCheckedChange=(e,userId)=>{
     const {name,checked}=e.target;
-  //  console.log(e.target);
-  //  console.log(checked);
     setUsers(prevUser=>prevUser.map(user=>user.id===userId?{...user,[name]:checked}:user));
   }
   const handleUpdate = async (id) => {
@@ -58,7 +56,6 @@ const ListUsers = () => {
       const index =updated.indexOf(userToUpdate);
       updated[index]={...userToUpdate};
       setUsers(updated);
-    //  console.log(users);
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +71,6 @@ const ListUsers = () => {
       const index =updated.indexOf(userSelected);
       updated.splice(index,1);
       setUsers(updated);
-    //  console.log(users);
      } catch (error) {
        console.error(error);
      }
@@ -91,7 +87,7 @@ const ListUsers = () => {
         <table className="table table-bordered">
           <thead>
             <tr>
-              {/* <th>ID</th> */}
+      
               <th>Name</th>
               <th>LastName</th>
               <th>UserName</th>
@@ -105,7 +101,7 @@ const ListUsers = () => {
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
-                {/* <td>{user.id}</td> */}
+              
                 <td>
                   <input
                     type="text"
