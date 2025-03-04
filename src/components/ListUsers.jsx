@@ -4,10 +4,15 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
+
+
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
+
+  
 
   const handleCreateClick = () => {
     navigate("/Register");
@@ -38,8 +43,11 @@ const ListUsers = () => {
     setUsers(updatedData);
   };
 
-  const handleCheckedChange=(value)=>{
-
+  const handleCheckedChange=(e,userId)=>{
+    const {name,checked}=e.target;
+  //  console.log(e.target);
+  //  console.log(checked);
+    setUsers(prevUser=>prevUser.map(user=>user.id===userId?{...user,[name]:checked}:user));
   }
   const handleUpdate = async (id) => {
  
@@ -52,7 +60,7 @@ const ListUsers = () => {
       const index =updated.indexOf(userToUpdate);
       updated[index]={...userToUpdate};
       setUsers(updated);
-      console.log(users);
+    //  console.log(users);
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +76,7 @@ const ListUsers = () => {
       const index =updated.indexOf(userSelected);
       updated.splice(index,1);
       setUsers(updated);
-      console.log(users);
+    //  console.log(users);
      } catch (error) {
        console.error(error);
      }
@@ -132,16 +140,18 @@ const ListUsers = () => {
                 <td>
                   <input
                     type="checkbox"
+                    name="isActive"
                     checked={user.isActive}
-                    onChange={(e) => handleCheckedChange(e, user.id, "isActive")}
+                    onChange={(e) => handleCheckedChange(e, user.id)}
                   ></input>
                 </td>
                 <td>
                   <input
                     type="checkbox"
+                    name="isAdmin"
                     checked={user.isAdmin}
                     
-                    onChange={(e) => handleCheckedChange(e, user.id, "isAdmin")}
+                    onChange={(e) => handleCheckedChange(e, user.id)}
                   ></input>
                 </td>
                 <td>
