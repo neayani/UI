@@ -14,6 +14,7 @@ const Register = () => {
     isActive:false,
     isAdmin:false
   });
+  
   const token = localStorage.getItem('token');
    const headers = {
     Authorization: `Bearer ${token}`,
