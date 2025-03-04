@@ -1,44 +1,48 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const LoginPage = () => {
-    const [email, setEmail] = useState('');
+const LoginPage = ({ onLogin }) => {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://localhost:7101/api/User', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
+            console.log(username);
+            console.log(password);
+            const response = await axios.post("https://localhost:44319/api/User/login", {
+                username,
+                password
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
+            if (response.status === 200) {
                 setMessage('Login successful!');
-                // Handle successful login (e.g., redirect to another page, store token, etc.)
+                onLogin(true);
+                navigate('/'); // Redirect to the home page after successful login
             } else {
-                setMessage(data.message || 'Invalid email or password');
+                setMessage(response.data.message || 'Invalid email or password');
             }
+
+            console.log(response);
         } catch (error) {
             setMessage('An error occurred. Please try again.');
+            console.log(error);
         }
     };
 
     return (
-        <div className="form-container"> 
+        <div className="form-container">
             <h2>Login</h2>
             <form onSubmit={handleSubmit} className="registration-form">
                 <div className="form-group">
-                    <label>UserName:</label>
+                    <label>Username:</label>
                     <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                         className='input'
                     />
@@ -54,7 +58,7 @@ const LoginPage = () => {
                     />
                 </div>
                 <br></br>
-                <button className='submit-button ' type="submit">Login</button>
+                <button className='submit-button' type="submit">Login</button>
             </form>
             {message && <p className='error-message'>{message}</p>}
         </div>
