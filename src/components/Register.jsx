@@ -1,6 +1,7 @@
 import "../style/registerUser.css";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   //Declare Object
@@ -14,6 +15,7 @@ const Register = () => {
     isAdmin:true
   });
 
+  const navigate = useNavigate();
   // const headers = {
 
   //   'Access-Control-Allow-Origin':'*',
@@ -26,11 +28,11 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formData);
-    axios
+     axios
 
       .post("https://localhost:7101/api/User", formData)
       .then((response) => {
+        navigate("/ListUsers");
         console.log(response);
       })
       .catch((error) => {
@@ -48,6 +50,7 @@ const Register = () => {
         ...formData,
         [name]: checked,
       });
+      console.log(formData);
     }
     else
     {
