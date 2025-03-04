@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-const Navbar = () => {
+
+const Navbar = ({ onLogout }) => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-         
           <button
             className="navbar-toggler"
             type="button"
@@ -18,7 +18,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-            <li className="nav-item">
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/">
                   Home
                 </NavLink>
@@ -32,13 +32,9 @@ const Navbar = () => {
                   ListOfUsers
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink>
-              </li> */}
             </ul>
           </div>
+          <button onClick={onLogout} className="btn btn-danger">Log Off</button>
         </div>
       </nav>
     </>
@@ -46,6 +42,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-<>
-  <h1>hello</h1>
-</>;

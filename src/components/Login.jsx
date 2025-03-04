@@ -11,8 +11,6 @@ const LoginPage = ({ onLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(username);
-            console.log(password);
             const response = await axios.post("https://localhost:44319/api/User/login", {
                 username,
                 password
@@ -23,13 +21,10 @@ const LoginPage = ({ onLogin }) => {
                 onLogin(true);
                 navigate('/'); // Redirect to the home page after successful login
             } else {
-                setMessage(response.data.message || 'Invalid email or password');
+                setMessage(response.data.message || 'Invalid username or password');
             }
-
-            console.log(response);
         } catch (error) {
             setMessage('An error occurred. Please try again.');
-            console.log(error);
         }
     };
 
