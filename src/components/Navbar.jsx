@@ -11,10 +11,9 @@ const Navbar = ({ onLogout }) => {
 
   let userRole;
   const token = localStorage.getItem("token"); // Get token from localStorage
-  console.log(token);
+
   if (token) {
     const decoded = decodeJwt(token);
-    console.log(decoded); // Logs the decoded JWT payload (including role)
     userRole = decoded.role; // Example of extracting role from decoded payload
   }
 
