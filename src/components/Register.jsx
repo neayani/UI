@@ -50,7 +50,7 @@ const Register = () => {
         ...formData,
         [name]: checked,
       });
-      console.log(formData);
+     // console.log(formData);
     }
     else
     {
