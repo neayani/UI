@@ -10,7 +10,11 @@ const ListUsers = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
 
-  
+  const token = localStorage.getItem('token');
+   const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
 
   const handleCreateClick = () => {
     navigate("/Register");
@@ -19,7 +23,7 @@ const ListUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://localhost:7101/api/User"); // Replace with your API endpoint
+        const response = await fetch("https://localhost:7101/api/User",{headers}); // Replace with your API endpoint
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
@@ -50,7 +54,7 @@ const ListUsers = () => {
     const userToUpdate = users.find((user) => user.id === id);
    
     try {
-      await axios.put("https://localhost:7101/api/User", userToUpdate);
+      await axios.put("https://localhost:7101/api/User", userToUpdate,{headers});
 
       const updated=[...users];
       const index =updated.indexOf(userToUpdate);
@@ -66,7 +70,7 @@ const ListUsers = () => {
      const userSelected= users.find((user) => user.id === id);
    
      try {
-      await axios.delete("https://localhost:7101/api/User", {data:{id:userSelected.id}});
+      await axios.delete("https://localhost:7101/api/User", {data:{id:userSelected.id},headers});
       const updated=[...users];
       const index =updated.indexOf(userSelected);
       updated.splice(index,1);
